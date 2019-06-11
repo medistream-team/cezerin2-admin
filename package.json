@@ -43,6 +43,8 @@
   "scripts": {
     "build": "webpack --config webpack.config.js --mode production",
     "build:watch": "webpack --config webpack.config.js --mode development --watch",
+    "build:dev": "webpack --config webpack.config.js --mode development",
+    "build:dev:watch": "webpack --config webpack.config.js --mode development --watch",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --write \"src/**/*.js\"",
