@@ -41,6 +41,7 @@
     "url": "https://github.com/cezerin2/cezerin2-admin"
   },
   "scripts": {
+    "start": "pm2 reset all && pm2 serve ./dist --port 3002 --spa --name=admin_prd -o ~/.pm2/logs/admin_prd.log -e ~/.pm2/logs/admin_prd_error.log",
     "build": "webpack --config webpack.config.js --mode production",
     "build:watch": "webpack --config webpack.config.js --mode development --watch",
     "build:dev": "webpack --config webpack.config.js --mode development",
