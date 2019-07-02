@@ -8,7 +8,7 @@ const Buttons = () => (
 	<span>
 		<Link to="/settings/webhooks/add">
 			<IconButton
-				touch={true}
+				touch
 				tooltipPosition="bottom-left"
 				tooltip={messages.webhookAdd}
 			>

@@ -3,10 +3,10 @@ import { Field, reduxForm } from 'redux-form';
 import { TextField } from 'redux-form-material-ui';
 
 import messages from 'lib/text';
-import style from './style.css';
 
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
+import style from './style.css';
 
 class EmailTemplate extends React.Component {
 	componentDidMount() {
@@ -14,7 +14,7 @@ class EmailTemplate extends React.Component {
 	}
 
 	render() {
-		let { handleSubmit, pristine, submitting, initialValues } = this.props;
+		const { handleSubmit, pristine, submitting, initialValues } = this.props;
 
 		return (
 			<form
@@ -29,7 +29,7 @@ class EmailTemplate extends React.Component {
 						<div>
 							<Field
 								component={TextField}
-								fullWidth={true}
+								fullWidth
 								name="subject"
 								floatingLabelText={messages.settings_emailSubject}
 							/>
@@ -37,9 +37,9 @@ class EmailTemplate extends React.Component {
 						<div>
 							<Field
 								component={TextField}
-								fullWidth={true}
+								fullWidth
 								name="body"
-								multiLine={true}
+								multiLine
 								floatingLabelText={messages.settings_emailBody}
 							/>
 						</div>
@@ -48,7 +48,7 @@ class EmailTemplate extends React.Component {
 						<RaisedButton
 							type="submit"
 							label={messages.save}
-							primary={true}
+							primary
 							className={style.button}
 							disabled={pristine || submitting}
 						/>

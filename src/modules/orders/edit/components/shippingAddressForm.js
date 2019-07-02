@@ -5,10 +5,10 @@ import { TextField } from 'redux-form-material-ui';
 import { CustomToggle } from 'modules/shared/form';
 import * as helper from 'lib/helper';
 import messages from 'lib/text';
-import style from './style.css';
 
 import Divider from 'material-ui/Divider';
 import FlatButton from 'material-ui/FlatButton';
+import style from './style.css';
 
 const validate = values => {
 	const errors = {};
@@ -23,15 +23,12 @@ const validate = values => {
 	return errors;
 };
 
-const getShippingFieldLabel = ({ label, key }) => {
-	return label && label.length > 0
-		? label
-		: helper.getOrderFieldLabelByKey(key);
-};
+const getShippingFieldLabel = ({ label, key }) =>
+	label && label.length > 0 ? label : helper.getOrderFieldLabelByKey(key);
 
 class ShippingAddressForm extends React.Component {
 	render() {
-		let {
+		const {
 			handleSubmit,
 			pristine,
 			submitting,
@@ -53,7 +50,7 @@ class ShippingAddressForm extends React.Component {
 					<Field
 						key={index}
 						component={TextField}
-						fullWidth={true}
+						fullWidth
 						name={field.key}
 						floatingLabelText={fieldLabel}
 					/>
@@ -67,7 +64,7 @@ class ShippingAddressForm extends React.Component {
 					{shippingFields}
 					<Field
 						component={TextField}
-						fullWidth={true}
+						fullWidth
 						name="city"
 						floatingLabelText={messages.city}
 					/>
@@ -75,7 +72,7 @@ class ShippingAddressForm extends React.Component {
 						<div className="col-xs-6">
 							<Field
 								component={TextField}
-								fullWidth={true}
+								fullWidth
 								name="state"
 								floatingLabelText={messages.state}
 							/>
@@ -83,7 +80,7 @@ class ShippingAddressForm extends React.Component {
 						<div className="col-xs-6">
 							<Field
 								component={TextField}
-								fullWidth={true}
+								fullWidth
 								name="postal_code"
 								floatingLabelText={messages.postal_code}
 							/>
@@ -91,7 +88,7 @@ class ShippingAddressForm extends React.Component {
 					</div>
 					<Field
 						component={TextField}
-						fullWidth={true}
+						fullWidth
 						name="country"
 						floatingLabelText={messages.country}
 					/>
@@ -100,7 +97,7 @@ class ShippingAddressForm extends React.Component {
 					<FlatButton label={messages.cancel} onClick={onCancel} />
 					<FlatButton
 						label={messages.save}
-						primary={true}
+						primary
 						type="submit"
 						style={{ marginLeft: 12 }}
 						disabled={pristine || submitting}

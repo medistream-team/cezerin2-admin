@@ -2,8 +2,6 @@ import React from 'react';
 
 import messages from 'lib/text';
 import * as helper from 'lib/helper';
-import style from './style.css';
-import AddressForm from './addressForm.js';
 import ConfirmationDialog from 'modules/shared/confirmation';
 
 import Paper from 'material-ui/Paper';
@@ -12,27 +10,27 @@ import FontIcon from 'material-ui/FontIcon';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import Dialog from 'material-ui/Dialog';
+import AddressForm from './addressForm.js';
+import style from './style.css';
 
-const Address = ({ address }) => {
-	return (
-		<div className={style.address}>
-			<div>{address.full_name}</div>
-			<div>{address.company}</div>
-			<div>{address.address1}</div>
-			<div>{address.address2}</div>
-			<div>
-				{address.city},{' '}
-				{address.state && address.state.length > 0 ? address.state + ', ' : ''}
-				{address.postal_code}
-			</div>
-			<div>{address.country}</div>
-			<div>{address.phone}</div>
+const Address = ({ address }) => (
+	<div className={style.address}>
+		<div>{address.full_name}</div>
+		<div>{address.company}</div>
+		<div>{address.address1}</div>
+		<div>{address.address2}</div>
+		<div>
+			{address.city},{' '}
+			{address.state && address.state.length > 0 ? `${address.state}, ` : ''}
+			{address.postal_code}
 		</div>
-	);
-};
+		<div>{address.country}</div>
+		<div>{address.phone}</div>
+	</div>
+);
 
 const iconButtonElement = (
-	<IconButton touch={true}>
+	<IconButton touch>
 		<FontIcon color="rgb(189, 189, 189)" className="material-icons">
 			more_vert
 		</FontIcon>
@@ -135,7 +133,7 @@ class CustomerAddress extends React.Component {
 						modal={false}
 						open={this.state.openEdit}
 						onRequestClose={this.hideEditForm}
-						autoScrollBodyContent={true}
+						autoScrollBodyContent
 						contentStyle={{ width: 600 }}
 					>
 						<AddressForm
@@ -170,9 +168,8 @@ const CustomerAddresses = ({
 			/>
 		));
 		return <div>{addresses}</div>;
-	} else {
-		return null;
 	}
+	return null;
 };
 
 export default CustomerAddresses;

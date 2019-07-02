@@ -4,11 +4,10 @@ import { TextField, SelectField } from 'redux-form-material-ui';
 
 import { CustomToggle, NumberField, ColorField } from 'modules/shared/form';
 import * as helper from 'lib/helper';
+import MenuItem from 'material-ui/MenuItem';
 import style from './style.css';
 import ArrayEditor from './arrayEditor';
 import ImageEditor from './imageEditor';
-
-import MenuItem from 'material-ui/MenuItem';
 
 const DynamicEditControl = ({
 	type,
@@ -25,12 +24,13 @@ const DynamicEditControl = ({
 		return (
 			<Field
 				component={TextField}
-				fullWidth={true}
+				fullWidth
 				name={fieldName}
 				floatingLabelText={label}
 			/>
 		);
-	} else if (type === 'string' && hasOptions) {
+	}
+	if (type === 'string' && hasOptions) {
 		const selectOptions = options.map((option, index) => (
 			<MenuItem key={index} value={option.value} primaryText={option.label} />
 		));
@@ -39,22 +39,25 @@ const DynamicEditControl = ({
 				component={SelectField}
 				name={fieldName}
 				floatingLabelText={label}
-				fullWidth={true}
-				autoWidth={true}
+				fullWidth
+				autoWidth
 			>
 				{selectOptions}
 			</Field>
 		);
-	} else if (type === 'number') {
+	}
+	if (type === 'number') {
 		return <Field component={NumberField} name={fieldName} label={label} />;
-	} else if (type === 'color') {
+	}
+	if (type === 'color') {
 		return (
 			<div className={style.colorInput}>
 				<label>{label}</label>
 				<Field component={ColorField} name={fieldName} />
 			</div>
 		);
-	} else if (type === 'boolean') {
+	}
+	if (type === 'boolean') {
 		return (
 			<Field
 				component={CustomToggle}
@@ -63,7 +66,8 @@ const DynamicEditControl = ({
 				style={{ paddingTop: 16, paddingBottom: 16 }}
 			/>
 		);
-	} else if (type === 'array' && hasProperties) {
+	}
+	if (type === 'array' && hasProperties) {
 		return (
 			<FieldArray
 				name={fieldName}
@@ -72,11 +76,11 @@ const DynamicEditControl = ({
 				properties={properties}
 			/>
 		);
-	} else if (type === 'image') {
-		return <Field name={fieldName} component={ImageEditor} label={label} />;
-	} else {
-		return null;
 	}
+	if (type === 'image') {
+		return <Field name={fieldName} component={ImageEditor} label={label} />;
+	}
+	return null;
 };
 
 export default DynamicEditControl;

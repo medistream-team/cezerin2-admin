@@ -7,31 +7,29 @@ import Divider from 'material-ui/Divider';
 import FontIcon from 'material-ui/FontIcon';
 import { List, ListItem } from 'material-ui/List';
 
-const CheckoutFieldItem = ({ name, status, path }) => {
-	return (
-		<div>
-			<Divider />
-			<Link
-				to={`/settings/checkout/fields/${path}`}
-				style={{ textDecoration: 'none' }}
-			>
-				<ListItem
-					rightIcon={
-						<FontIcon className="material-icons">keyboard_arrow_right</FontIcon>
-					}
-					primaryText={
-						<div className="row">
-							<div className="col-xs-6">{name}</div>
-							<div className="col-xs-6" style={{ color: 'rgba(0, 0, 0, 0.4)' }}>
-								{status}
-							</div>
+const CheckoutFieldItem = ({ name, status, path }) => (
+	<div>
+		<Divider />
+		<Link
+			to={`/settings/checkout/fields/${path}`}
+			style={{ textDecoration: 'none' }}
+		>
+			<ListItem
+				rightIcon={
+					<FontIcon className="material-icons">keyboard_arrow_right</FontIcon>
+				}
+				primaryText={
+					<div className="row">
+						<div className="col-xs-6">{name}</div>
+						<div className="col-xs-6" style={{ color: 'rgba(0, 0, 0, 0.4)' }}>
+							{status}
 						</div>
-					}
-				/>
-			</Link>
-		</div>
-	);
-};
+					</div>
+				}
+			/>
+		</Link>
+	</div>
+);
 
 export default class EmailSettings extends React.Component {
 	componentDidMount() {

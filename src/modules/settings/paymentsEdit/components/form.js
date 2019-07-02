@@ -5,15 +5,15 @@ import { TextField, SelectField } from 'redux-form-material-ui';
 import { CustomToggle } from 'modules/shared/form';
 import PaymentGateway from 'modules/settings/paymentGateway';
 import { AVAILABLE_PAYMENT_GATEWAYS } from 'modules/settings/paymentGateway/availablePaymentGateways';
-import SelectShippingMethodsField from './selectShipping.js';
 import messages from 'lib/text';
-import style from './style.css';
 
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem';
 import Checkbox from 'material-ui/Checkbox';
+import style from './style.css';
+import SelectShippingMethodsField from './selectShipping.js';
 
 const validate = values => {
 	const errors = {};
@@ -50,12 +50,12 @@ class EditPaymentMethodForm extends React.Component {
 
 	onGatewayChange = gateway => {
 		this.setState({
-			gateway: gateway
+			gateway
 		});
 	};
 
 	render() {
-		let {
+		const {
 			handleSubmit,
 			pristine,
 			submitting,
@@ -65,7 +65,7 @@ class EditPaymentMethodForm extends React.Component {
 			settings
 		} = this.props;
 		const isAdd = methodId === null || methodId === undefined;
-		let paymentGateways = [];
+		const paymentGateways = [];
 		paymentGateways.push(<MenuItem value="" key="none" primaryText="None" />);
 		for (const gateway of AVAILABLE_PAYMENT_GATEWAYS) {
 			paymentGateways.push(
@@ -89,10 +89,10 @@ class EditPaymentMethodForm extends React.Component {
 								<div>
 									<Field
 										component={SelectField}
-										autoWidth={true}
-										fullWidth={true}
+										autoWidth
+										fullWidth
 										name="gateway"
-										floatingLabelFixed={true}
+										floatingLabelFixed
 										floatingLabelText={messages.paymentGateway}
 										onChange={(event, currentValue, prevValue) => {
 											this.onGatewayChange(currentValue);
@@ -113,7 +113,7 @@ class EditPaymentMethodForm extends React.Component {
 								<div>
 									<Field
 										component={TextField}
-										fullWidth={true}
+										fullWidth
 										name="name"
 										floatingLabelText={messages.settings_paymentMethodName}
 									/>
@@ -121,9 +121,9 @@ class EditPaymentMethodForm extends React.Component {
 								<div>
 									<Field
 										component={TextField}
-										fullWidth={true}
+										fullWidth
 										name="description"
-										multiLine={true}
+										multiLine
 										floatingLabelText={messages.description}
 									/>
 								</div>
@@ -147,7 +147,7 @@ class EditPaymentMethodForm extends React.Component {
 								<div>
 									<Field
 										component={TextField}
-										fullWidth={true}
+										fullWidth
 										name="conditions.countries"
 										floatingLabelText={messages.settings_countries}
 										hintText="US,UK,AU,SG"
@@ -159,11 +159,10 @@ class EditPaymentMethodForm extends React.Component {
 											component={TextField}
 											name="conditions.subtotal_min"
 											type="number"
-											fullWidth={true}
-											floatingLabelText={
-												messages.settings_minSubtotal +
-												` (${settings.currency_symbol})`
-											}
+											fullWidth
+											floatingLabelText={`${messages.settings_minSubtotal} (${
+												settings.currency_symbol
+											})`}
 										/>
 									</div>
 									<div className="col-xs-6">
@@ -171,11 +170,10 @@ class EditPaymentMethodForm extends React.Component {
 											component={TextField}
 											name="conditions.subtotal_max"
 											type="number"
-											fullWidth={true}
-											floatingLabelText={
-												messages.settings_maxSubtotal +
-												` (${settings.currency_symbol})`
-											}
+											fullWidth
+											floatingLabelText={`${messages.settings_maxSubtotal} (${
+												settings.currency_symbol
+											})`}
 										/>
 									</div>
 								</div>
@@ -194,7 +192,7 @@ class EditPaymentMethodForm extends React.Component {
 						<RaisedButton
 							type="submit"
 							label={isAdd ? messages.add : messages.save}
-							primary={true}
+							primary
 							className={style.button}
 							disabled={pristine || submitting}
 						/>

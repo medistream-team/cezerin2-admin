@@ -6,32 +6,30 @@ import Divider from 'material-ui/Divider';
 import FontIcon from 'material-ui/FontIcon';
 import { List, ListItem } from 'material-ui/List';
 
-const RedirectItem = ({ redirect }) => {
-	return (
-		<div>
-			<Divider />
-			<Link
-				to={`/settings/redirects/${redirect.id}`}
-				style={{ textDecoration: 'none' }}
-			>
-				<ListItem
-					rightIcon={
-						<FontIcon className="material-icons">keyboard_arrow_right</FontIcon>
-					}
-					primaryText={
-						<div className="row">
-							<div className="col-xs-4">{redirect.from}</div>
-							<div className="col-xs-4">{redirect.to}</div>
-							<div className="col-xs-4" style={{ color: 'rgba(0, 0, 0, 0.4)' }}>
-								301
-							</div>
+const RedirectItem = ({ redirect }) => (
+	<div>
+		<Divider />
+		<Link
+			to={`/settings/redirects/${redirect.id}`}
+			style={{ textDecoration: 'none' }}
+		>
+			<ListItem
+				rightIcon={
+					<FontIcon className="material-icons">keyboard_arrow_right</FontIcon>
+				}
+				primaryText={
+					<div className="row">
+						<div className="col-xs-4">{redirect.from}</div>
+						<div className="col-xs-4">{redirect.to}</div>
+						<div className="col-xs-4" style={{ color: 'rgba(0, 0, 0, 0.4)' }}>
+							301
 						</div>
-					}
-				/>
-			</Link>
-		</div>
-	);
-};
+					</div>
+				}
+			/>
+		</Link>
+	</div>
+);
 
 export default class RedirectsList extends React.Component {
 	constructor(props) {
@@ -44,7 +42,7 @@ export default class RedirectsList extends React.Component {
 
 	render() {
 		const { redirects } = this.props;
-		let listItems = redirects.map((redirect, index) => (
+		const listItems = redirects.map((redirect, index) => (
 			<RedirectItem key={index} redirect={redirect} />
 		));
 

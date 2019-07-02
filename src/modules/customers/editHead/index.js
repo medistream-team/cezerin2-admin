@@ -4,20 +4,16 @@ import { withRouter } from 'react-router';
 import { deleteCurrentCustomer } from '../actions';
 import Buttons from './components/buttons';
 
-const mapStateToProps = (state, ownProps) => {
-	return {
-		customer: state.customers.editCustomer
-	};
-};
+const mapStateToProps = (state, ownProps) => ({
+	customer: state.customers.editCustomer
+});
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-	return {
-		onDelete: () => {
-			dispatch(deleteCurrentCustomer());
-			ownProps.history.push('/customers');
-		}
-	};
-};
+const mapDispatchToProps = (dispatch, ownProps) => ({
+	onDelete: () => {
+		dispatch(deleteCurrentCustomer());
+		ownProps.history.push('/customers');
+	}
+});
 
 export default withRouter(
 	connect(

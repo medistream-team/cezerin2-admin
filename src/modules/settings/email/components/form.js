@@ -83,7 +83,7 @@ export default class EmailSettings extends React.Component {
 									primaryText={messages.settings_customerRegistration}
 								/>
 							</Link>
-							{/*<Link
+							{/* <Link
 								to="/settings/email/templates/register_doi_de"
 								style={{ textDecoration: 'none' }}
 							>
@@ -108,7 +108,7 @@ export default class EmailSettings extends React.Component {
 									}
 									primaryText={messages.settings_customerRegistration}
 								/>
-							</Link>*/}
+							</Link> */}
 							<Link
 								to="/settings/email/templates/forgot_password_en"
 								style={{ textDecoration: 'none' }}
@@ -122,7 +122,7 @@ export default class EmailSettings extends React.Component {
 									primaryText={messages.settings_customerRecovery}
 								/>
 							</Link>
-							{/*<Link
+							{/* <Link
 								to="/settings/email/templates/forgot_password_de"
 								style={{ textDecoration: 'none' }}
 							>
@@ -147,7 +147,7 @@ export default class EmailSettings extends React.Component {
 									}
 									primaryText={messages.settings_customerRecovery}
 								/>
-							</Link>*/}
+							</Link> */}
 						</List>
 					</div>
 				</Paper>

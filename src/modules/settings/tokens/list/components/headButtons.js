@@ -8,7 +8,7 @@ const Buttons = () => (
 	<span>
 		<Link to="/settings/tokens/add">
 			<IconButton
-				touch={true}
+				touch
 				tooltipPosition="bottom-left"
 				tooltip={messages.settings_addToken}
 			>

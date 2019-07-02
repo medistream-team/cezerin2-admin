@@ -8,7 +8,7 @@ const Buttons = () => (
 	<span>
 		<Link to="/settings/payments/add">
 			<IconButton
-				touch={true}
+				touch
 				tooltipPosition="bottom-left"
 				tooltip={messages.settings_addPaymentMethod}
 			>

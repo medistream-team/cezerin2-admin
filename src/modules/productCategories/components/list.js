@@ -76,9 +76,8 @@ export default class Categories extends React.Component {
 			return allItems
 				.filter(item => item.parent_id === id)
 				.map(item => this.getItem(selectedId, allItems, item, opened));
-		} else {
-			return [];
 		}
+		return [];
 	}
 
 	handleClickAll = () => {
@@ -101,7 +100,7 @@ export default class Categories extends React.Component {
 			opened = false
 		} = this.props;
 
-		var rows = items
+		const rows = items
 			.filter(item => item.parent_id === null)
 			.map(item => this.getItem(selectedId, items, item, opened));
 
@@ -110,7 +109,7 @@ export default class Categories extends React.Component {
 				{showRoot && (
 					<ListItem
 						primaryText={rootName}
-						style={'root' === selectedId ? styles.selectedItem : null}
+						style={selectedId === 'root' ? styles.selectedItem : null}
 						innerDivStyle={styles.innerItem}
 						leftIcon={<FontIcon className="material-icons">home</FontIcon>}
 						onClick={this.handleClickRoot}
@@ -121,7 +120,7 @@ export default class Categories extends React.Component {
 					<ListItem
 						className="treeItem"
 						primaryText={allName}
-						style={'all' === selectedId ? styles.selectedItem : null}
+						style={selectedId === 'all' ? styles.selectedItem : null}
 						innerDivStyle={styles.innerItem}
 						leftIcon={<FontIcon className="material-icons">folder</FontIcon>}
 						onClick={this.handleClickAll}

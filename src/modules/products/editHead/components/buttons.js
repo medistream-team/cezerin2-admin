@@ -5,7 +5,7 @@ import DeleteConfirmation from 'modules/shared/deleteConfirmation';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
-const Fragment = React.Fragment;
+const { Fragment } = React;
 
 export default class Buttons extends React.Component {
 	constructor(props) {
@@ -38,7 +38,7 @@ export default class Buttons extends React.Component {
 		return (
 			<Fragment>
 				<IconButton
-					touch={true}
+					touch
 					tooltipPosition="bottom-left"
 					tooltip={messages.deleteProduct}
 					onClick={this.openDelete}
@@ -47,23 +47,22 @@ export default class Buttons extends React.Component {
 						delete
 					</FontIcon>
 				</IconButton>
-				{product &&
-					product.enabled && (
-						<a href={product.url} target="_blank">
-							<IconButton
-								touch={true}
-								tooltipPosition="bottom-left"
-								tooltip={messages.viewOnWebsite}
-							>
-								<FontIcon color="#fff" className="material-icons">
-									open_in_new
-								</FontIcon>
-							</IconButton>
-						</a>
-					)}
+				{product && product.enabled && (
+					<a href={product.url} target="_blank">
+						<IconButton
+							touch
+							tooltipPosition="bottom-left"
+							tooltip={messages.viewOnWebsite}
+						>
+							<FontIcon color="#fff" className="material-icons">
+								open_in_new
+							</FontIcon>
+						</IconButton>
+					</a>
+				)}
 				<DeleteConfirmation
 					open={this.state.openDelete}
-					isSingle={true}
+					isSingle
 					itemsCount={1}
 					itemName={productName}
 					onCancel={this.closeDelete}

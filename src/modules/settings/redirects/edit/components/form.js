@@ -3,11 +3,11 @@ import { Field, reduxForm } from 'redux-form';
 import { TextField } from 'redux-form-material-ui';
 
 import messages from 'lib/text';
-import style from './style.css';
 import { CustomToggle, MultiSelect } from 'modules/shared/form';
 
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
+import style from './style.css';
 
 const validate = values => {
 	const errors = {};
@@ -28,7 +28,7 @@ class EditRedirectForm extends React.Component {
 	}
 
 	render() {
-		let { handleSubmit, pristine, submitting, redirectId } = this.props;
+		const { handleSubmit, pristine, submitting, redirectId } = this.props;
 		const isAdd = redirectId === null || redirectId === undefined;
 
 		return (
@@ -40,27 +40,24 @@ class EditRedirectForm extends React.Component {
 								name="from"
 								component={TextField}
 								floatingLabelText="From (e.g. /old-path)"
-								fullWidth={true}
+								fullWidth
 							/>
 							<Field
 								name="to"
 								component={TextField}
 								floatingLabelText="To (e.g. /new-path)"
-								fullWidth={true}
+								fullWidth
 							/>
 						</div>
 						<div
-							className={
-								'buttons-box ' +
-								(pristine && !isAdd
-									? 'buttons-box-pristine'
-									: 'buttons-box-show')
-							}
+							className={`buttons-box ${
+								pristine && !isAdd ? 'buttons-box-pristine' : 'buttons-box-show'
+							}`}
 						>
 							<RaisedButton
 								type="submit"
 								label={isAdd ? messages.add : messages.save}
-								primary={true}
+								primary
 								className={style.button}
 								disabled={pristine || submitting}
 							/>

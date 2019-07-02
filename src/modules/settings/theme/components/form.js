@@ -1,13 +1,13 @@
 import React from 'react';
 
 import messages from 'lib/text';
-import style from './style.css';
 import api from 'lib/api';
 import ThemeSettings from 'modules/settings/themeSettings';
 
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import Divider from 'material-ui/Divider';
+import style from './style.css';
 
 const styles = {
 	button: {
@@ -33,7 +33,7 @@ export default class Theme extends React.Component {
 			if (json.file) {
 				window.location = json.file;
 			} else {
-				alert('Error: ' + JSON.stringify(json));
+				alert(`Error: ${JSON.stringify(json)}`);
 			}
 		});
 	}
@@ -41,7 +41,7 @@ export default class Theme extends React.Component {
 	onImportFileChoose(e) {
 		this.props.installRequest();
 		const file = e.target.files[0];
-		var formData = new FormData();
+		const formData = new FormData();
 		formData.append('file', file);
 
 		api.theme.install(formData);
@@ -67,7 +67,7 @@ export default class Theme extends React.Component {
 									}
 									disabled={exportInProcess || installInProcess}
 									onClick={this.onExportClick.bind(this)}
-									primary={true}
+									primary
 								/>
 							</div>
 						</div>
@@ -95,7 +95,7 @@ export default class Theme extends React.Component {
 									disabled={installInProcess}
 									labelPosition="before"
 									containerElement="label"
-									primary={true}
+									primary
 								>
 									<input
 										type="file"

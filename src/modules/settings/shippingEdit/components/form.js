@@ -2,13 +2,13 @@ import React from 'react';
 import { Field, FieldArray, reduxForm } from 'redux-form';
 import { TextField } from 'redux-form-material-ui';
 import { CustomToggle } from 'modules/shared/form';
-import FieldsEditor from './fieldsEditor';
 import messages from 'lib/text';
-import style from './style.css';
 
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import RaisedButton from 'material-ui/RaisedButton';
+import style from './style.css';
+import FieldsEditor from './fieldsEditor';
 
 const validate = values => {
 	const errors = {};
@@ -29,7 +29,7 @@ class EditShippingMethodForm extends React.Component {
 	}
 
 	render() {
-		let {
+		const {
 			handleSubmit,
 			pristine,
 			submitting,
@@ -51,7 +51,7 @@ class EditShippingMethodForm extends React.Component {
 								<div>
 									<Field
 										component={TextField}
-										fullWidth={true}
+										fullWidth
 										name="name"
 										floatingLabelText={messages.settings_shippingMethodName}
 									/>
@@ -59,9 +59,9 @@ class EditShippingMethodForm extends React.Component {
 								<div>
 									<Field
 										component={TextField}
-										fullWidth={true}
+										fullWidth
 										name="description"
-										multiLine={true}
+										multiLine
 										floatingLabelText={messages.description}
 									/>
 								</div>
@@ -72,11 +72,10 @@ class EditShippingMethodForm extends React.Component {
 											component={TextField}
 											name="price"
 											type="number"
-											fullWidth={true}
-											floatingLabelText={
-												messages.settings_shippingRate +
-												` (${settings.currency_symbol})`
-											}
+											fullWidth
+											floatingLabelText={`${messages.settings_shippingRate} (${
+												settings.currency_symbol
+											})`}
 										/>
 									</div>
 									<div className="col-xs-6">
@@ -100,7 +99,7 @@ class EditShippingMethodForm extends React.Component {
 								<div>
 									<Field
 										component={TextField}
-										fullWidth={true}
+										fullWidth
 										name="conditions.countries"
 										floatingLabelText={messages.settings_countries}
 										hintText="US,UK,AU,SG"
@@ -109,7 +108,7 @@ class EditShippingMethodForm extends React.Component {
 								<div>
 									<Field
 										component={TextField}
-										fullWidth={true}
+										fullWidth
 										name="conditions.states"
 										floatingLabelText={messages.settings_states}
 										hintText="California,Nevada,Oregon"
@@ -118,7 +117,7 @@ class EditShippingMethodForm extends React.Component {
 								<div>
 									<Field
 										component={TextField}
-										fullWidth={true}
+										fullWidth
 										name="conditions.cities"
 										floatingLabelText={messages.settings_cities}
 										hintText="Los Angeles,San Diego,San Jose"
@@ -131,11 +130,10 @@ class EditShippingMethodForm extends React.Component {
 											component={TextField}
 											name="conditions.weight_total_min"
 											type="number"
-											fullWidth={true}
-											floatingLabelText={
-												messages.settings_minTotalWeight +
-												` (${settings.weight_unit})`
-											}
+											fullWidth
+											floatingLabelText={`${
+												messages.settings_minTotalWeight
+											} (${settings.weight_unit})`}
 										/>
 									</div>
 									<div className="col-xs-6">
@@ -143,11 +141,10 @@ class EditShippingMethodForm extends React.Component {
 											component={TextField}
 											name="conditions.weight_total_max"
 											type="number"
-											fullWidth={true}
-											floatingLabelText={
-												messages.settings_maxTotalWeight +
-												` (${settings.weight_unit})`
-											}
+											fullWidth
+											floatingLabelText={`${
+												messages.settings_maxTotalWeight
+											} (${settings.weight_unit})`}
 										/>
 									</div>
 								</div>
@@ -158,11 +155,10 @@ class EditShippingMethodForm extends React.Component {
 											component={TextField}
 											name="conditions.subtotal_min"
 											type="number"
-											fullWidth={true}
-											floatingLabelText={
-												messages.settings_minSubtotal +
-												` (${settings.currency_symbol})`
-											}
+											fullWidth
+											floatingLabelText={`${messages.settings_minSubtotal} (${
+												settings.currency_symbol
+											})`}
 										/>
 									</div>
 									<div className="col-xs-6">
@@ -170,11 +166,10 @@ class EditShippingMethodForm extends React.Component {
 											component={TextField}
 											name="conditions.subtotal_max"
 											type="number"
-											fullWidth={true}
-											floatingLabelText={
-												messages.settings_maxSubtotal +
-												` (${settings.currency_symbol})`
-											}
+											fullWidth
+											floatingLabelText={`${messages.settings_maxSubtotal} (${
+												settings.currency_symbol
+											})`}
 										/>
 									</div>
 								</div>
@@ -207,7 +202,7 @@ class EditShippingMethodForm extends React.Component {
 						<RaisedButton
 							type="submit"
 							label={isAdd ? messages.add : messages.save}
-							primary={true}
+							primary
 							className={style.button}
 							disabled={pristine || submitting}
 						/>
