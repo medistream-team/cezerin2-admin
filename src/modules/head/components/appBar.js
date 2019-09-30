@@ -523,6 +523,8 @@ export default class AppBarTop extends React.Component {
 		} else if (pathname === '/files') {
 			title = messages.files;
 			rightElements = <FileListHead />;
+		} else if (pathname === '/account') {
+			title = '법인계좌 이체내역';
 		} else if (pathname === '/settings/tokens') {
 			title = messages.settings_tokens;
 			rightElements = <TokenListHead />;
