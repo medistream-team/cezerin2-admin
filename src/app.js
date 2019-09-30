@@ -20,6 +20,7 @@ import PagesDetails from 'routes/pages/edit';
 import Settings from 'routes/settings';
 import Apps from 'routes/apps';
 import Files from 'routes/files';
+import Account from 'routes/account';
 
 import {
 	blue700,
@@ -89,6 +90,7 @@ export default () => (
 						<Route path="/settings" component={Settings} />
 						<Route path="/apps" component={Apps} />
 						<Route path="/files" exact component={Files} />
+						<Route path="/account" exact component={Account} />
 						<Route component={NotFound} />
 					</Switch>
 				</div>

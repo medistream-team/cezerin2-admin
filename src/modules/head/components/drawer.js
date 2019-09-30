@@ -56,6 +56,15 @@ const menuItems = [
 		url: 'settings'
 	},
 	{
+		title: '법인계좌 이체내역',
+		url: '/account',
+		icon: 'account_balance'
+	},
+	{
+		title: '-',
+		url: 'settings'
+	},
+	{
 		title: messages.drawer_settings,
 		url: '/settings',
 		icon: 'settings'
