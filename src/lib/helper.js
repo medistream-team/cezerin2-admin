@@ -34,15 +34,8 @@ export const formatFileSize = (bytes = 0) => {
 };
 
 export const getThumbnailUrl = (originalUrl, width) => {
-	if (originalUrl && originalUrl.length > 0) {
-		const pos = originalUrl.lastIndexOf('/');
-		const thumbnailUrl = `${originalUrl.substring(
-			0,
-			pos
-		)}/${width}/${originalUrl.substring(pos + 1)}`;
-		return thumbnailUrl;
-	}
-	return '';
+	const baseUrl = 'https://image.medistream.co.kr';
+	return `${baseUrl}/width/${width}/n/${originalUrl}`;
 };
 
 export const getOrderFieldLabelByKey = key => {
