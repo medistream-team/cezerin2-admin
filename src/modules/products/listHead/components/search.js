@@ -8,7 +8,7 @@ export default ({ value, setSearch }) => (
 		onChange={setSearch}
 		onKeyPress={e => {
 			if (e.key === 'Enter') {
-				setSearch(value);
+				setSearch(e, value);
 			}
 		}}
 		hintText={messages.products_search}
