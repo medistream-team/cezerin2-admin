@@ -6,6 +6,11 @@ export default ({ value, setSearch }) => (
 	<TextField
 		className="searchField"
 		value={value}
+		onKeyPress={e => {
+			if (e.key === 'Enter') {
+				setSearch(value);
+			}
+		}}
 		onChange={(e, v) => {
 			setSearch(v);
 		}}

@@ -5,16 +5,14 @@ import TextField from 'material-ui/TextField';
 export default ({ value, setSearch }) => (
 	<TextField
 		value={value}
-		onKeyPress={(e, v) => {
+		onKeyPress={e => {
 			if (e.key === 'Enter') {
-				//   console.log('Enter key pressed');
-				setSearch(v);
-				// write your functionality here
+				setSearch(value);
 			}
 		}}
-		// onChange={(e, v) => {
-		// 	setSearch(v);
-		// }}
+		onChange={(e, v) => {
+			setSearch(v);
+		}}
 		hintText={messages.customers_search}
 		underlineShow={false}
 		className="searchField"
@@ -23,7 +21,7 @@ export default ({ value, setSearch }) => (
 			color: '#fff',
 			backgroundColor: 'rgba(255,255,255,0.2)',
 			borderRadius: '4px',
-			textIndent: '16px',
+			textIndent: '16px'
 		}}
 	/>
 );
