@@ -188,10 +188,10 @@ export default class Buttons extends React.Component {
 						anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
 					>
 						{menuItems}
-						<MenuItem
+						{/* <MenuItem
 							primaryText={messages.deleteOrder}
 							onClick={this.openDelete}
-						/>
+						/> */}
 					</IconMenu>
 				</span>
 			);
