@@ -295,7 +295,7 @@ export class OrderItem extends React.Component {
 
 const OrderItems = ({ order, settings, onItemDelete, onItemUpdate }) => {
 	// const allowEdit = order.closed === false && order.cancelled === false;
-	const allowEdit = false;
+	const allowEdit = order.draft;
 	const items = order.items.map((item, index) => (
 		<OrderItem
 			key={index}
