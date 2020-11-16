@@ -35,7 +35,7 @@ export default class Buttons extends React.Component {
 		return (
 			<Fragment>
 				<Search value={search} setSearch={setSearch} />
-				{selectedCount > 0 && (
+				{/* {selectedCount > 0 && (
 					<Fragment>
 						<IconButton
 							touch
@@ -55,7 +55,7 @@ export default class Buttons extends React.Component {
 							onDelete={this.deleteOrders}
 						/>
 					</Fragment>
-				)}
+				)} */}
 				<IconButton
 					touch
 					tooltipPosition="bottom-left"
