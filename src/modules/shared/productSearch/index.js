@@ -1,21 +1,23 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 
 import messages from 'lib/text';
 import api from 'lib/api';
 import * as helper from 'lib/helper';
 
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import TextField from 'material-ui/TextField';
 import {
-	Table,
-	TableBody,
-	TableFooter,
-	TableHeader,
-	TableHeaderColumn,
-	TableRow,
-	TableRowColumn
-} from 'material-ui/Table';
+	AppBar,
+	Button,
+	IconButton,
+	Dialog,
+	Toolbar,
+	Typography
+} from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
+
+import TextField from 'material-ui/TextField';
+import { Table, TableBody, TableRow, TableRowColumn } from 'material-ui/Table';
 
 const SearchBox = ({ text, onChange }) => (
 	<TextField
@@ -121,32 +123,30 @@ export default class ConfirmationDialog extends React.Component {
 	};
 
 	render() {
-		const {
-			title,
-			submitLabel,
-			cancelLabel,
-			modal = false,
-			settings
-		} = this.props;
-
-		const actions = [
-			<FlatButton
-				label={cancelLabel}
-				onClick={this.handleCancel}
-				style={{ marginRight: 10 }}
-			/>,
-			<FlatButton label={submitLabel} primary onClick={this.handleSubmit} />
-		];
+		const { title, submitLabel, settings } = this.props;
+		const { open } = this.state;
 
 		return (
-			<Dialog
-				title={title}
-				actions={actions}
-				actionsContainerStyle={{ borderTop: '1px solid rgb(224, 224, 224)' }}
-				modal={modal}
-				open={this.state.open}
-				onRequestClose={this.handleCancel}
-			>
+			<Dialog fullScreen open={open} aria-labelledby="responsive-dialog-title">
+				<AppBar style={{ position: 'relative' }}>
+					<Toolbar>
+						<IconButton
+							edge="start"
+							color="inherit"
+							onClick={this.handleCancel}
+							aria-label="close"
+						>
+							<CloseIcon />
+						</IconButton>
+						<Typography variant="h6" style={{ flex: 1 }}>
+							{title}
+						</Typography>
+						<Button autoFocus color="inherit" onClick={this.handleSubmit}>
+							{submitLabel}
+						</Button>
+					</Toolbar>
+				</AppBar>
+
 				<div>
 					<SearchBox text={this.state.search} onChange={this.handleSearch} />
 					<SearchResult

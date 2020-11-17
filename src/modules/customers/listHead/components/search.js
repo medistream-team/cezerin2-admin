@@ -5,6 +5,11 @@ import TextField from 'material-ui/TextField';
 export default ({ value, setSearch }) => (
 	<TextField
 		value={value}
+		onKeyPress={e => {
+			if (e.key === 'Enter') {
+				setSearch(value);
+			}
+		}}
 		onChange={(e, v) => {
 			setSearch(v);
 		}}

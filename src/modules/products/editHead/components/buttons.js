@@ -37,7 +37,7 @@ export default class Buttons extends React.Component {
 
 		return (
 			<Fragment>
-				<IconButton
+				{/* <IconButton
 					touch
 					tooltipPosition="bottom-left"
 					tooltip={messages.deleteProduct}
@@ -46,7 +46,7 @@ export default class Buttons extends React.Component {
 					<FontIcon color="#fff" className="material-icons">
 						delete
 					</FontIcon>
-				</IconButton>
+				</IconButton> */}
 				{product && product.enabled && (
 					<a href={product.url} target="_blank">
 						<IconButton

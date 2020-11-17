@@ -73,7 +73,7 @@ export default class Buttons extends React.Component {
 				<Search value={search} setSearch={setSearch} />
 				{selectedCount > 0 && (
 					<Fragment>
-						<IconButton
+						{/* <IconButton
 							touch
 							tooltipPosition="bottom-left"
 							tooltip={messages.actions_delete}
@@ -82,7 +82,7 @@ export default class Buttons extends React.Component {
 							<FontIcon color="#fff" className="material-icons">
 								delete
 							</FontIcon>
-						</IconButton>
+						</IconButton> */}
 						<IconButton
 							touch
 							tooltipPosition="bottom-left"
