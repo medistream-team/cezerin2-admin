@@ -1,42 +1,35 @@
-FROM node:8
-LABEL maintainer "Nitin Goyal <nitingoyal.dev@gmail.com>, Luke Busstra <luke.busstra@gmail.com>"
+# build stage
+FROM node:8 AS build
+MAINTAINER cezerin-admin
 
-ENV NGINX_CODENAME stretch
+ARG langauge=ko_KR
+ENV LANGUAGE=$language
+ARG apiBaseUrl=https://market-api.stg.medistream.co.kr/api/v1
+ENV API_BASE_URL=$apiBaseUrl
+ARG assetsBaseURL=https://warehouse.medistream.co.kr
+ENV ASSETS_BASE_URL=$assetsBaseURL
+ARG apiWebSocketUrl=wss://market-api.stg.medistream.co.kr
+ENV API_WEB_SOCKET_URL=$apiWebSocketUrl
 
-# install requirements and NGINX
-RUN echo "deb http://nginx.org/packages/debian/ ${NGINX_CODENAME} nginx" >> /etc/apt/sources.list \
-	&& apt-get update && apt-get install --no-install-recommends --no-install-suggests -y --force-yes \
-		bash \
-		zip \
-		unzip \
-		wget \
-		curl \
-		nano \
-		ca-certificates \
-		nginx
-
-# copy project - LOCAL CODE
 RUN mkdir -p /var/www/cezerin2-admin
-ADD . /var/www/cezerin2-admin
+COPY . /var/www/cezerin2-admin
 
-WORKDIR /var/www/cezerin2-admin
+WORKDIR /var/www/cezerin2-admine
 
-# Nginx config
-COPY nginx/nginx.conf /etc/nginx/
-COPY nginx/default.conf /etc/nginx/conf.d/
-
-# script to run Nginx and PM2
-COPY docker-entrypoint.sh /usr/local/bin/
-RUN chmod +x "/usr/local/bin/docker-entrypoint.sh"
-
-# build project
 RUN cd /var/www/cezerin2-admin \
-	&& npm install \
-	&& npm cache clean --force \
-	&& npm run build
+        && npm install \
+        && npm run build
+
+# final stage
+FROM nginx:stable-alpine
+MAINTAINER cezerin-admin
+
+COPY --from=build /var/www/cezerin2-admin/dist /usr/share/nginx/html
+
+COPY --from=build /var/www/cezerin2-admin/nginx/nginx.conf /etc/nginx/
+COPY --from=build /var/www/cezerin2-admin/nginx/default.conf /etc/nginx/conf.d/
 
 EXPOSE 80
 
 # start env build and Nginx
-ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
-
+# CMD ["nginx"]
