@@ -30,6 +30,3 @@ COPY --from=build /var/www/cezerin2-admin/nginx/nginx.conf /etc/nginx/
 COPY --from=build /var/www/cezerin2-admin/nginx/default.conf /etc/nginx/conf.d/
 
 EXPOSE 80
-
-# start env build and Nginx
-# CMD ["nginx"]
