@@ -3,8 +3,8 @@ const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const applicationConfig = require('./config/admin.js');
-const applicationText = require(`./locales/${applicationConfig.language}.json`);
+// const applicationConfig = require('./config/admin.js');
+const applicationText = require(`./locales/${process.env.LANGUAGE}.json`);
 const copyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
@@ -20,19 +20,19 @@ module.exports = {
 			'redux',
 			'redux-form',
 			'redux-form-material-ui',
-			'material-ui'
-		]
+			'material-ui',
+		],
 	},
 
 	performance: {
-		hints: false
+		hints: false,
 	},
 
 	output: {
 		publicPath: '/',
 		path: path.resolve(__dirname, 'dist'),
 		filename: 'js/[name]-[chunkhash].js',
-		chunkFilename: 'js/[name]-[chunkhash].js'
+		chunkFilename: 'js/[name]-[chunkhash].js',
 	},
 
 	optimization: {
@@ -42,10 +42,10 @@ module.exports = {
 					chunks: 'initial',
 					name: 'vendor',
 					test: 'vendor',
-					enforce: true
-				}
-			}
-		}
+					enforce: true,
+				},
+			},
+		},
 	},
 
 	resolve: {
@@ -53,8 +53,8 @@ module.exports = {
 			src: path.resolve(__dirname, 'src'),
 			routes: path.resolve(__dirname, 'src/routes'),
 			modules: path.resolve(__dirname, 'src/modules'),
-			lib: path.resolve(__dirname, 'src/lib')
-		}
+			lib: path.resolve(__dirname, 'src/lib'),
+		},
 	},
 
 	module: {
@@ -66,9 +66,9 @@ module.exports = {
 					loader: 'babel-loader',
 					options: {
 						presets: ['env', 'react'],
-						plugins: ['transform-class-properties']
-					}
-				}
+						plugins: ['transform-class-properties'],
+					},
+				},
 			},
 			{
 				test: /\.css$/,
@@ -79,11 +79,11 @@ module.exports = {
 						loader: 'css-loader',
 						options: {
 							modules: false,
-							importLoaders: true
-						}
+							importLoaders: true,
+						},
 					},
-					'postcss-loader'
-				]
+					'postcss-loader',
+				],
 			},
 			{
 				test: /\.css$/,
@@ -95,58 +95,58 @@ module.exports = {
 						options: {
 							modules: true,
 							importLoaders: true,
-							localIdentName: '[name]__[local]___[hash:base64:5]'
-						}
+							localIdentName: '[name]__[local]___[hash:base64:5]',
+						},
 					},
-					'postcss-loader'
-				]
-			}
-		]
+					'postcss-loader',
+				],
+			},
+		],
 	},
 
 	plugins: [
 		new copyWebpackPlugin([
 			{
 				from: 'public',
-				to: 'assets'
-			}
+				to: 'assets',
+			},
 		]),
 		new CleanWebpackPlugin(
 			['dist/js/app-*.js', 'dist/js/vendor-*.js', 'dist/css/bundle-*.css'],
 			{ verbose: false }
 		),
 		new webpack.DefinePlugin({
-			APPLICATION_CONFIG: JSON.stringify(applicationConfig)
+			APPLICATION_CONFIG: JSON.stringify(process.env),
 		}),
 		new webpack.DefinePlugin({
-			APPLICATION_TEXT: JSON.stringify(applicationText)
+			APPLICATION_TEXT: JSON.stringify(applicationText),
 		}),
 		new MiniCssExtractPlugin({
 			filename: 'css/bundle-[contenthash].css',
-			chunkFilename: 'css/bundle-[contenthash].css'
+			chunkFilename: 'css/bundle-[contenthash].css',
 		}),
 		new HtmlWebpackPlugin({
 			template: 'src/index.html',
-			language: applicationConfig.language,
+			language: process.env.language,
 			inject: 'body',
-			filename: 'index.html'
+			filename: 'index.html',
 		}),
 		new HtmlWebpackPlugin({
 			template: 'src/index.html',
-			language: applicationConfig.language,
+			language: process.env.language,
 			inject: 'body',
-			filename: '404.html'
+			filename: '404.html',
 		}),
 		new webpack.BannerPlugin({
 			banner: `Created: ${new Date().toUTCString()}`,
 			raw: false,
-			entryOnly: false
-		})
+			entryOnly: false,
+		}),
 	],
 
 	stats: {
 		children: false,
 		entrypoints: false,
-		modules: false
-	}
+		modules: false,
+	},
 };
