@@ -2,13 +2,18 @@ pipelines:
   branches:
     master:
       - step:
+          name: AWS ECR setting
+          image: atlassian/pipelines-awscli
+          script:
+            - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ECR_REPOSITORY
+      - step:
+          name: Docker build and push
           services:
             - docker
           deployment: Production
           script:
-            - IMAGE=$AWS_ECR_REPOSITORY/$AWS_ECR_REPOSITORY_NAME
-            - TAG=$BBITBUCKET_REPO_SLUG-$BITBUCKET_BRANCH
-            - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ECR_REPOSITORY
+            - IMAGE=$AWS_ECR_REPOSITORY/cezerin-admin
+            - TAG=${BITBUCKET_BRANCH:-$BITBUCKET_TAG}
             - docker build -t $IMAGE:$TAG . \
               --build-arg langauge=$LANGUAGE \
               --build-arg apiBaseUrl=$API_BASE_URL \
@@ -17,16 +22,21 @@ pipelines:
             - docker push $IMAGE:$TAG
     develop:
       - step:
+          name: AWS ECR setting
+          image: atlassian/pipelines-awscli
+          script:
+            - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ECR_REPOSITORY
+      - step:
+          name: Docker build and push
           services:
             - docker
           deployment: Staging
           script:
-            - IMAGE=$AWS_ECR_REPOSITORY/$AWS_ECR_REPOSITORY_NAME
-            - TAG=$BITBUCKET_REPOSITORY_NAME-$BITBUCKET_BRANCH
-            - aws ecr get-login-password --region $AWS_REGION | docker login --username $AWS_ECR_USERNAME --password-stdin $AWS_ECR_REPOSITORY
+            - IMAGE=$AWS_ECR_REPOSITORY/cezerin-admin
+            - TAG=${BITBUCKET_BRANCH:-$BITBUCKET_TAG}
             - docker build -t $IMAGE:$TAG . \
               --build-arg langauge=$LANGUAGE \
               --build-arg apiBaseUrl=$API_BASE_URL \
-              --build-arg assetsBaseURL=${ASSETS_BASE_URL} \
-              --build-arg apiWebSocketUrl=${API_WEB_SOCKET_URL}
+              --build-arg assetsBaseURL=$ASSETS_BASE_URL \
+              --build-arg apiWebSocketUrl=$API_WEB_SOCKET_URL
             - docker push $IMAGE:$TAG
