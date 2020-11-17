@@ -1,11 +1,17 @@
+options:
+  docker: true
+  size: 2x
+definitions:
+  services:
+    docker:
+      memory: 2048
 pipelines:
   branches:
     master:
       - step:
           name: Docker build and push
           services:
-            - docker:
-                memory: 2048 
+            - docker
           image: atlassian/pipelines-awscli
           deployment: Production
           script:
@@ -23,8 +29,7 @@ pipelines:
       - step:
           name: Docker build and push
           services:
-            - docker:
-                memory: 2048 
+            - docker
           image: atlassian/pipelines-awscli
           deployment: Staging
           script:
