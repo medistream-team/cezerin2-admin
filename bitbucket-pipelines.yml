@@ -2,16 +2,13 @@ pipelines:
   branches:
     master:
       - step:
-          name: AWS ECR setting
-          image: atlassian/pipelines-awscli
-          script:
-            - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ECR_REPOSITORY
-      - step:
           name: Docker build and push
           services:
             - docker
+          image: atlassian/pipelines-awscli
           deployment: Production
           script:
+            - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ECR_REPOSITORY
             - IMAGE=$AWS_ECR_REPOSITORY/cezerin-admin
             - TAG=${BITBUCKET_BRANCH:-$BITBUCKET_TAG}
             - docker build -t $IMAGE:$TAG . \
@@ -22,16 +19,13 @@ pipelines:
             - docker push $IMAGE:$TAG
     develop:
       - step:
-          name: AWS ECR setting
-          image: atlassian/pipelines-awscli
-          script:
-            - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ECR_REPOSITORY
-      - step:
           name: Docker build and push
           services:
             - docker
+          image: atlassian/pipelines-awscli
           deployment: Staging
           script:
+            - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ECR_REPOSITORY
             - IMAGE=$AWS_ECR_REPOSITORY/cezerin-admin
             - TAG=${BITBUCKET_BRANCH:-$BITBUCKET_TAG}
             - docker build -t $IMAGE:$TAG . \
