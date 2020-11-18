@@ -44,3 +44,4 @@ pipelines:
               --build-arg assetsBaseURL=$ASSETS_BASE_URL 
               --build-arg apiWebSocketUrl=$API_WEB_SOCKET_URL
             - docker push $IMAGE:$TAG
+            
