@@ -14,7 +14,7 @@ ENV API_WEB_SOCKET_URL=$apiWebSocketUrl
 RUN mkdir -p /var/www/cezerin2-admin
 COPY . /var/www/cezerin2-admin
 
-WORKDIR /var/www/cezerin2-admine
+WORKDIR /var/www/cezerin2-admin
 
 RUN cd /var/www/cezerin2-admin \
         && npm install \
