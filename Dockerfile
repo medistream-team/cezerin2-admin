@@ -2,7 +2,7 @@
 FROM node:8 AS build
 MAINTAINER cezerin-admin
 
-ARG langauge=ko_KR
+ARG language=ko_KR
 ENV LANGUAGE=$language
 ARG apiBaseUrl=https://market-api.stg.medistream.co.kr/api/v1
 ENV API_BASE_URL=$apiBaseUrl
