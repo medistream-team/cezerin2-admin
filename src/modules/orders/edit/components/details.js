@@ -33,6 +33,8 @@ export default class OrderDetails extends React.Component {
 			onCheckout,
 			processingCheckout
 		} = this.props;
+		const settingCancelled = Object.assign({}, settings);
+		settingCancelled.isCancelled = true;
 		if (!order) return null;
 
 		return (
@@ -53,6 +55,9 @@ export default class OrderDetails extends React.Component {
 				</div>
 				<div className="col-xs-12 col-sm-7 col-md-8 col--no-gutter scroll col-full-height">
 					<Paper className="paper-box" zDepth={1}>
+						<div style={{ paddingTop: 16, paddingLeft: 16, paddingBottom: 16 }}>
+							주문 품목
+						</div>
 						<OrderItems
 							order={order}
 							settings={settings}
@@ -61,12 +66,23 @@ export default class OrderDetails extends React.Component {
 						/>
 						<div className={style.innerBox}>
 							<div className="row">
-								<div className="col-xs-6" />
-								<div className="col-xs-6">
+								<div className="col-xs-4" />
+								<div className="col-xs-8">
 									<OrderTotals order={order} settings={settings} />
 								</div>
 							</div>
 						</div>
+					</Paper>
+					<Paper className="paper-box" zDepth={1}>
+						<div style={{ paddingTop: 16, paddingLeft: 16, paddingBottom: 16 }}>
+							취소 품목
+						</div>
+						<OrderItems
+							order={order}
+							settings={settingCancelled}
+							onItemDelete={onItemDelete}
+							onItemUpdate={onItemUpdate}
+						/>
 					</Paper>
 				</div>
 			</div>

@@ -296,17 +296,32 @@ export class OrderItem extends React.Component {
 const OrderItems = ({ order, settings, onItemDelete, onItemUpdate }) => {
 	// const allowEdit = order.closed === false && order.cancelled === false;
 	const allowEdit = order.draft;
-	const items = order.items.map((item, index) => (
-		<OrderItem
-			key={index}
-			item={item}
-			settings={settings}
-			onItemDelete={onItemDelete}
-			onItemUpdate={onItemUpdate}
-			allowEdit={allowEdit}
-		/>
-	));
-	return <div>{items}</div>;
+
+	if (settings.isCancelled) {
+		const items = (order.cancelled_items || []).map((item, index) => (
+			<OrderItem
+				key={index}
+				item={item}
+				settings={settings}
+				onItemDelete={onItemDelete}
+				onItemUpdate={onItemUpdate}
+				allowEdit={allowEdit}
+			/>
+		));
+		return <div>{items}</div>;
+	} else {
+		const items = order.items.map((item, index) => (
+			<OrderItem
+				key={index}
+				item={item}
+				settings={settings}
+				onItemDelete={onItemDelete}
+				onItemUpdate={onItemUpdate}
+				allowEdit={allowEdit}
+			/>
+		));
+		return <div>{items}</div>;
+	}
 };
 
 export default OrderItems;

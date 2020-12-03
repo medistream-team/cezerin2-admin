@@ -2,7 +2,7 @@ import React from 'react';
 
 import messages from 'lib/text';
 import * as helper from 'lib/helper';
-
+import moment from 'moment';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import Divider from 'material-ui/Divider';
@@ -31,11 +31,31 @@ const OrderTotals = ({ order, settings }) => {
 			: '';
 
 	let transactionsTotal = 0;
-	for (const transaction of order.transactions) {
-		if (transaction.success === true) {
+
+	const tr = (order.transcation || []).concat(order.transactions);
+	let impUid,
+		buyerName,
+		paidAt = '';
+
+	for (const transaction of tr) {
+		if (transaction.status === 'paid') {
 			transactionsTotal += transaction.amount;
+			const { imp_uid, buyer_name, paid_at } = transaction;
+			const paidAtFormated = moment(new Date(paid_at * 1000)).format(
+				`${settings.date_format}, ${settings.time_format}`
+			);
+			impUid = imp_uid;
+			buyerName = buyer_name;
+			paidAt = paidAtFormated;
 		}
 	}
+
+	// ::MARK : 오타로 결제금액이 안나옴 오타전까지 이걸로 감
+	// for (const transaction of order.transactions) {
+	// 	if (transaction.success === true) {
+	// 		transactionsTotal += transaction.amount;
+	// 	}
+	// }
 	const paidTotal = helper.formatCurrency(transactionsTotal, settings);
 
 	return (
@@ -52,12 +72,12 @@ const OrderTotals = ({ order, settings }) => {
 				</div>
 				<div className="col-xs-5">{shippingTotal}</div>
 			</div>
-			<div className={`${style.total} row`}>
+			{/* <div className={`${style.total} row`}>
 				<div className="col-xs-7">
 					<span>{messages.orderTax}</span>
 				</div>
 				<div className="col-xs-5">{taxIncludedTotal}</div>
-			</div>
+			</div> */}
 			<div className={`${style.total} row`}>
 				<div className="col-xs-7">
 					<span>
@@ -84,6 +104,18 @@ const OrderTotals = ({ order, settings }) => {
 					<span>{messages.amountPaid}</span>
 				</div>
 				<div className="col-xs-5">{paidTotal}</div>
+			</div>
+			<div className={`${style.total} row`}>
+				<div className="col-xs-7">
+					<span>{`결제일시`}</span>
+				</div>
+				<div className="col-xs-5">{paidAt}</div>
+			</div>
+			<div className={`${style.total} row`}>
+				<div className="col-xs-7">
+					<span>{impUid}</span>
+				</div>
+				<div className="col-xs-5">{buyerName}</div>
 			</div>
 		</div>
 	);
