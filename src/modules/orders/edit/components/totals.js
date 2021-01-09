@@ -32,23 +32,58 @@ const OrderTotals = ({ order, settings }) => {
 
 	let transactionsTotal = 0;
 
-	const tr = (order.transcation || []).concat(order.transactions);
-	let impUid,
-		buyerName,
-		paidAt = '';
+	// const tr = (order.transcation || []).concat(order.transactions);
+	const tr =
+		order.transactions.length > 0
+			? order.transactions
+			: order.transcation || [];
+	// let impUid ='',
+	// 	buyerName = '',
+	// 	paidAt = '',
+	// 	cancelledAt = '',
+	// 	amount = 0,
+	// 	cancelledAmount = 0,
+	// 	cardStatus = '';
+	const lastTransaction = tr.pop() || {};
+	const {
+		amount,
+		paid_at,
+		status,
+		cancel_amount: cancelledAmount,
+		cancelled_at,
+		imp_uid: impUid,
+		buyer_name: buyerName,
+		cancel_reason: note
+	} = lastTransaction;
 
-	for (const transaction of tr) {
-		if (transaction.status === 'paid') {
-			transactionsTotal += transaction.amount;
-			const { imp_uid, buyer_name, paid_at } = transaction;
-			const paidAtFormated = moment(new Date(paid_at * 1000)).format(
-				`${settings.date_format}, ${settings.time_format}`
-			);
-			impUid = imp_uid;
-			buyerName = buyer_name;
-			paidAt = paidAtFormated;
-		}
-	}
+	const paidAt = moment(new Date(paid_at * 1000)).format(
+		`${settings.date_format}, ${settings.time_format}`
+	);
+	const cancelledAt = moment(new Date(cancelled_at * 1000)).format(
+		`${settings.date_format}, ${settings.time_format}`
+	);
+
+	const statusTitle =
+		status === 'paid'
+			? '결제완료'
+			: status === 'cancelled'
+			? amount === cancel_amount
+				? '전액환불'
+				: '부분환불'
+			: '미결제/결제실패';
+
+	// for (const transaction of tr) {
+	// 	if (transaction.status === 'paid') {
+	// 		transactionsTotal += transaction.amount;
+	// 		const { imp_uid, buyer_name, paid_at } = transaction;
+	// 		const paidAtFormated = moment(new Date(paid_at * 1000)).format(
+	// 			`${settings.date_format}, ${settings.time_format}`
+	// 		);
+	// 		impUid = imp_uid;
+	// 		buyerName = buyer_name;
+	// 		paidAt = paidAtFormated;
+	// 	}
+	// }
 
 	// ::MARK : 오타로 결제금액이 안나옴 오타전까지 이걸로 감
 	// for (const transaction of order.transactions) {
@@ -56,7 +91,9 @@ const OrderTotals = ({ order, settings }) => {
 	// 		transactionsTotal += transaction.amount;
 	// 	}
 	// }
-	const paidTotal = helper.formatCurrency(transactionsTotal, settings);
+	const paidTotal = helper.formatCurrency(amount - cancelledAmount, settings);
+	const paidApprovedTotal = helper.formatCurrency(amount, settings);
+	const cancelledTotal = helper.formatCurrency(cancelledAmount, settings);
 
 	return (
 		<div>
@@ -98,6 +135,12 @@ const OrderTotals = ({ order, settings }) => {
 					marginBottom: 20
 				}}
 			/>
+			<div className={`${style.total} row`}>
+				<div className="col-xs-7">
+					<span>{messages.cardStatus}</span>
+				</div>
+				<div className="col-xs-5">{statusTitle}</div>
+			</div>
 
 			<div className={`${style.total} row`}>
 				<div className="col-xs-7">
@@ -105,17 +148,43 @@ const OrderTotals = ({ order, settings }) => {
 				</div>
 				<div className="col-xs-5">{paidTotal}</div>
 			</div>
+
+			<div className={`${style.total} row`}>
+				<div className="col-xs-7">
+					<span>{messages.amountApproved}</span>
+				</div>
+				<div className="col-xs-5">{paidApprovedTotal}</div>
+			</div>
 			<div className={`${style.total} row`}>
 				<div className="col-xs-7">
 					<span>{`결제일시`}</span>
 				</div>
 				<div className="col-xs-5">{paidAt}</div>
 			</div>
+
+			<div className={`${style.total} row`}>
+				<div className="col-xs-7">
+					<span>{messages.amountCancelled}</span>
+				</div>
+				<div className="col-xs-5">{cancelledTotal}</div>
+			</div>
+			<div className={`${style.total} row`}>
+				<div className="col-xs-7">
+					<span>{`취소/환불일시`}</span>
+				</div>
+				<div className="col-xs-5">{cancelledAt}</div>
+			</div>
 			<div className={`${style.total} row`}>
 				<div className="col-xs-7">
 					<span>{impUid}</span>
 				</div>
 				<div className="col-xs-5">{buyerName}</div>
+			</div>
+			<div className={`${style.total} row`}>
+				<div className="col-xs-7">
+					<span>{`환불사유`}</span>
+				</div>
+				<div className="col-xs-5">{note}</div>
 			</div>
 		</div>
 	);
